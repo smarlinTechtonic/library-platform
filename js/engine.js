@@ -42,9 +42,24 @@ Library.prototype.getRandomBook = function() {
   return this.bookShelf[num];
 };
 
+//Searches for any part of the title and returns the books
+Library.prototype.getBookByTitle = function(title) {
+  if(this.bookShelf.filter(item => item.title.indexOf(title) > -1).length === 0){
+    return [];
+  } else {
+  return this.bookShelf.filter(item => item.title.indexOf(title) > -1);
+  }
+};
 
-Library.prototype.getBookByTitle = function(title) {};
-Library.prototype.getBookByAuthor = function(author){};
+//
+Library.prototype.getBookByAuthor = function(author){
+  if(this.bookShelf.filter(item => item.author.indexOf(author) > -1).length === 0){
+    return [];
+  } else {
+  return this.bookShelf.filter(item => item.title.indexOf(author) > -1);
+  }
+};
+
 Library.prototype.addBooks = function(books){};
 
 Library.prototype.getAuthors = function() {
