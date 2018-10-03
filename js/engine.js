@@ -2,7 +2,7 @@ function Library() {
   this.bookShelf = new Array();
 };
 
-//Function to add a book. If title exists, will return false
+//Function to add a book. If title already exists in bookshelf, will return false
 Library.prototype.addBook = function(book) {
   for (var i = 0; i < this.bookShelf.length; i++){
     if(this.bookShelf[i].title === book.title){
@@ -51,16 +51,37 @@ Library.prototype.getBookByTitle = function(title) {
   }
 };
 
-//
+//matches to any string provided and shows all books that match
 Library.prototype.getBookByAuthor = function(author){
-  if(this.bookShelf.filter(item => item.author.indexOf(author) > -1).length === 0){
+  if(this.bookShelf.filter(item => item.author.indexOf(author) !== -1).length < 1){
     return [];
   } else {
-  return this.bookShelf.filter(item => item.title.indexOf(author) > -1);
+  return this.bookShelf.filter(item => item.author.indexOf(author) !== -1);
   }
 };
 
-Library.prototype.addBooks = function(books){};
+//Add
+Library.prototype.addBooks = function(aBooks) {
+  var booksAdded = 0;
+  var oThis = this;
+  aBooks.forEach(function(book) {
+      var bookToAdd = new Book(book);
+      oThis.bookShelf.push(bookToAdd);
+      booksAdded++;
+    });
+  return booksAdded;
+};
+
+// Library.prototype.addBooks = function(aBooks) {
+//   var booksAdded = 0;
+//   console.log("just before the forEach loop");
+//   aBooks.forEach(book => {
+//       var bookToAdd = new Book(book);
+//       this.bookShelf.push(bookToAdd);
+//       booksAdded++;
+//     });
+//   return booksAdded;
+// };
 
 Library.prototype.getAuthors = function() {
   var authors = this.bookShelf.map(item => item.author);
@@ -78,3 +99,5 @@ document.addEventListener("DOMContentLoaded", function(e) {
   gLibrary.addBook(fourthBook);
   gLibrary.addBook(fifthBook);
 });
+
+var myBooksArr = [{title: "The Martian", author: "Andy Weir", numPages: 369, pubDate: "February 11th 2014"},{title: "American Kingpin: The Epic Hunt for the Criminal Mastermind Behind the Silk Road", author: "Nick Bilton"}];
