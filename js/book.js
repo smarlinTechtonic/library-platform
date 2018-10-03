@@ -6,7 +6,11 @@ function Book(oBook) {
 };
 
 Book.prototype.editBook = function(oBook) {
-
+  this.title = oBook.title || this.title;
+  this.author = oBook.author || this.author;
+  this.numPages = oBook.numPages || this.numPages;
+  this.pubDate = oBook.pubDate || this.pubDate;
+  return true;
 };
 
 var firstBook = new Book ({title: "The Glass Castle", author: "Jeannette Walls", numPages: 288, pubDate: "March 14th 2005"});

@@ -14,24 +14,47 @@ Library.prototype.addBook = function(book) {
 };
 
 //Function to remove a book by title. Will match partial words and remove all. If no match, will return false
-Library.prototype.removeBookByTitle = function(title) {
-  if(this.bookShelf.filter(item => item.title.indexOf(title) > -1).length===0){
+Library.prototype.removeBookByTitle = function(fragment){
+  if(this.bookShelf.filter(function(item){
+    return item.title.indexOf(fragment) > -1}).length === 0){
     return false;
   } else {
-    this.bookShelf = this.bookShelf.filter(item => item.title.indexOf(title) === -1);
-    return true;
-  }
-};
-
-//Function to remove a book by author. Will match all authors and remove all. If no match, will return false
-Library.prototype.removeBookByAuthor = function(author) {
-  if(this.bookShelf.filter(item => item.author === author).length === 0){
-    return false;
-  } else {
-    this.bookShelf = this.bookShelf.filter(item => item.author !== author);
+    this.bookShelf = this.bookShelf.filter(item => item.title.indexOf(fragment) === -1);
     return true;
   }
 }
+// ES6 arrows
+// Library.prototype.removeBookByTitle = function(title) {
+//   if(this.bookShelf.filter(item => item.title.indexOf(title) > -1).length===0){
+//     return false;
+//   } else {
+//     this.bookShelf = this.bookShelf.filter(item => item.title.indexOf(title) === -1);
+//     return true;
+//   }
+// };
+
+
+//Function to remove a book by author. Will match all authors and remove all. If no match, will return false
+Library.prototype.removeBookByAuthor = function(author) {
+  if(this.bookShelf.filter(function(item){
+    return item.author === author}).length === 0){
+    return false;
+  } else {
+    this.bookShelf = this.bookShelf.filter(function(item){
+    return item.author !== author});
+    return true;
+  }
+}
+
+// ES6
+// Library.prototype.removeBookByAuthor = function(author) {
+//   if(this.bookShelf.filter(elem => elem.author === author).length === 0){
+//     return false;
+//   } else {
+//     this.bookShelf = this.bookShelf.filter(elem => elem.author !== author);
+//     return true;
+//   }
+// }
 
 //Generates a random number between 0 and the length of the array and returns that array item
 Library.prototype.getRandomBook = function() {
@@ -60,7 +83,7 @@ Library.prototype.getBookByAuthor = function(author){
   }
 };
 
-//Add
+//Add multiple books
 Library.prototype.addBooks = function(aBooks) {
   var booksAdded = 0;
   var oThis = this;
@@ -72,7 +95,8 @@ Library.prototype.addBooks = function(aBooks) {
   return booksAdded;
 };
 
-// Library.prototype.addBooks = function(aBooks) {
+//  Using ES6!
+//  Library.prototype.addBooks = function(aBooks) {
 //   var booksAdded = 0;
 //   console.log("just before the forEach loop");
 //   aBooks.forEach(book => {
@@ -89,7 +113,10 @@ Library.prototype.getAuthors = function() {
   return authors;
 };
 
-Library.prototype.getRandomAuthorName = function() {};
+Library.prototype.getRandomAuthorName = function() {
+  var num = Math.floor(Math.random() * this.bookShelf.length);
+  return this.bookShelf[num].author;
+};
 
 document.addEventListener("DOMContentLoaded", function(e) {
   window.gLibrary = new Library();
