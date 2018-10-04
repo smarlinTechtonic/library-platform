@@ -1,6 +1,17 @@
-function Library() {
-  this.bookShelf = new Array();
-};
+(function() {//SINGLETON
+  var instance;
+  Library = function() {
+    if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
+      return instance;
+    }
+    instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
+    this.bookShelf = new Array();
+  }
+})();
+
+// function Library() {
+//   this.bookShelf = new Array();
+// };
 
 //Function to add a book. If title already exists in bookshelf, will return false
 Library.prototype.addBook = function(book) {
@@ -9,6 +20,7 @@ Library.prototype.addBook = function(book) {
       return false;
     }
   }
+
   this.bookShelf.push(new Book(book));
   return true;
 };
@@ -119,7 +131,7 @@ Library.prototype.getRandomAuthorName = function() {
 };
 
 document.addEventListener("DOMContentLoaded", function(e) {
-  window.gLibrary = new Library();
+    window.gLibrary = new Library();
   // gLibrary.addBook(firstBook);
   // gLibrary.addBook(secondBook);
   // gLibrary.addBook(thirdBook);
