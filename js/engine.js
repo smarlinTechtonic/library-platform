@@ -4,8 +4,8 @@
     if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
       return instance;
     }
-    instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
     this.bookShelf = new Array();
+    instance = this; //if a instance of library does not yet exist this will get and set the instance name for the new library
   }
 })();
 
@@ -20,7 +20,6 @@ Library.prototype.addBook = function(book) {
       return false;
     }
   }
-
   this.bookShelf.push(new Book(book));
   return true;
 };
@@ -28,10 +27,10 @@ Library.prototype.addBook = function(book) {
 //Function to remove a book by title. Will match partial words and remove all. If no match, will return false
 Library.prototype.removeBookByTitle = function(fragment){
   if(this.bookShelf.filter(function(item){
-    return item.title.indexOf(fragment) > -1}).length === 0){
+    return item.title.toLowerCase().indexOf(fragment.toLowerCase()) > -1}).length === 0){
     return false;
   } else {
-    this.bookShelf = this.bookShelf.filter(item => item.title.indexOf(fragment) === -1);
+    this.bookShelf = this.bookShelf.filter(item => item.title.toLowerCase().indexOf(fragment.toLowerCase()) === -1);
     return true;
   }
 }
@@ -49,11 +48,11 @@ Library.prototype.removeBookByTitle = function(fragment){
 //Function to remove a book by author. Will match all authors and remove all. If no match, will return false
 Library.prototype.removeBookByAuthor = function(author) {
   if(this.bookShelf.filter(function(item){
-    return item.author === author}).length === 0){
+    return item.author.toLowerCase() === author.toLowerCase()}).length === 0){
     return false;
   } else {
     this.bookShelf = this.bookShelf.filter(function(item){
-    return item.author !== author});
+    return item.author.toLowerCase() !== author.toLowerCase()});
     return true;
   }
 }
@@ -79,10 +78,10 @@ Library.prototype.getRandomBook = function() {
 
 //Searches for any part of the title and returns the books
 Library.prototype.getBookByTitle = function(title) {
-  if(this.bookShelf.filter(item => item.title.indexOf(title) > -1).length === 0){
+  if(this.bookShelf.filter(item => item.title.toLowerCase().indexOf(title.toLowerCase()) > -1).length === 0){
     return [];
   } else {
-  return this.bookShelf.filter(item => item.title.indexOf(title) > -1);
+  return this.bookShelf.filter(item => item.title.toLowerCase().indexOf(title.toLowerCase()) > -1);
   }
 };
 
@@ -100,8 +99,8 @@ Library.prototype.addBooks = function(aBooks) {
   var booksAdded = 0;
   var oThis = this;
   aBooks.forEach(function(book) {
-      var bookToAdd = new Book(book);
-      oThis.bookShelf.push(bookToAdd);
+      // var bookToAdd = new Book(book);
+      oThis.addBook(new Book(book));
       booksAdded++;
     });
   return booksAdded;
@@ -129,6 +128,19 @@ Library.prototype.getRandomAuthorName = function() {
   var num = Math.floor(Math.random() * this.bookShelf.length);
   return this.bookShelf[num].author;
 };
+
+Library.prototype.searchAll = function(key) {
+  var foundArr = [];
+    for (var i = 0; i < this.bookShelf.length; i++) {
+        if (this.bookShelf[i].title.indexOf(key) > -1) {
+            foundArr[i] = this.bookShelf[i];
+        }
+        if (!foundArr[i] && this.bookShelf[i].author.indexOf(key) > -1) {
+            foundArr[i] = (this.bookShelf[i]);
+        }
+    }
+    return foundArr;
+}
 
 document.addEventListener("DOMContentLoaded", function(e) {
     window.gLibrary = new Library();
