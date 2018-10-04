@@ -146,6 +146,17 @@ Library.prototype.searchAll = function(key) {
     return foundArr;
 }
 
+//search a specific key value pair in the bookShelf Array
+Library.prototype.findBookByKeyValue = function(key, value) {
+  var aFoundBooks = [];
+    for (var i = 0; i < this.bookShelf.length; i++) {
+        if (this.bookShelf[i][key] === value) {
+          aFoundBooks.push(this.bookShelf[i]);
+        }
+    }
+    return aFoundBooks;
+}
+
 document.addEventListener("DOMContentLoaded", function(e) {
     window.gLibrary = new Library();
   // gLibrary.addBook(firstBook);
