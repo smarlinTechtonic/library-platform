@@ -9,7 +9,7 @@ Library.prototype.addBook = function(book) {
       return false;
     }
   }
-  this.bookShelf.push(book);
+  this.bookShelf.push(new Book(book));
   return true;
 };
 
@@ -120,11 +120,11 @@ Library.prototype.getRandomAuthorName = function() {
 
 document.addEventListener("DOMContentLoaded", function(e) {
   window.gLibrary = new Library();
-  gLibrary.addBook(firstBook);
-  gLibrary.addBook(secondBook);
-  gLibrary.addBook(thirdBook);
-  gLibrary.addBook(fourthBook);
-  gLibrary.addBook(fifthBook);
+  // gLibrary.addBook(firstBook);
+  // gLibrary.addBook(secondBook);
+  // gLibrary.addBook(thirdBook);
+  // gLibrary.addBook(fourthBook);
+  // gLibrary.addBook(fifthBook);
 });
 
-var myBooksArr = [{title: "The Martian", author: "Andy Weir", numPages: 369, pubDate: "February 11th 2014"},{title: "American Kingpin: The Epic Hunt for the Criminal Mastermind Behind the Silk Road", author: "Nick Bilton"}];
+// var myBooksArr = [{title: "The Martian", author: "Andy Weir", numPages: 369, pubDate: "February 11th 2014"},{title: "American Kingpin: The Epic Hunt for the Criminal Mastermind Behind the Silk Road", author: "Nick Bilton"}];
