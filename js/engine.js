@@ -1,4 +1,5 @@
-(function() {//SINGLETON
+//SINGLETON
+(function() {
   var instance;
   Library = function() {
     if (instance) { //if a instance of library already exists this will point the newly made library to the Singleton instance
@@ -16,7 +17,7 @@
 //Function to add a book. If title already exists in bookshelf, will return false
 Library.prototype.addBook = function(book) {
   for (var i = 0; i < this.bookShelf.length; i++){
-    if(this.bookShelf[i].title === book.title){
+    if(this.bookShelf[i].title.toLowerCase() === book.title.toLowerCase()){
       return false;
     }
   }
@@ -85,12 +86,12 @@ Library.prototype.getBookByTitle = function(title) {
   }
 };
 
-//matches to any string provided and shows all books that match
+//matches author of books to any string provided and shows all books that match
 Library.prototype.getBookByAuthor = function(author){
-  if(this.bookShelf.filter(item => item.author.indexOf(author) !== -1).length < 1){
+  if(this.bookShelf.filter(item => item.author.toLowerCase().indexOf(author.toLowerCase()) !== -1).length < 1){
     return [];
   } else {
-  return this.bookShelf.filter(item => item.author.indexOf(author) !== -1);
+  return this.bookShelf.filter(item => item.author.toLowerCase().indexOf(author.toLowerCase()) !== -1);
   }
 };
 
@@ -118,17 +119,20 @@ Library.prototype.addBooks = function(aBooks) {
 //   return booksAdded;
 // };
 
+//Get all authors in library and return as an array
 Library.prototype.getAuthors = function() {
   var authors = this.bookShelf.map(item => item.author);
   console.log(authors);
   return authors;
 };
 
+//Get a random author
 Library.prototype.getRandomAuthorName = function() {
   var num = Math.floor(Math.random() * this.bookShelf.length);
   return this.bookShelf[num].author;
 };
 
+//Searches either title OR author for a given keyword
 Library.prototype.searchAll = function(key) {
   var foundArr = [];
     for (var i = 0; i < this.bookShelf.length; i++) {
