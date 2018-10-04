@@ -10,6 +10,7 @@ Book.prototype.editBook = function(oBook) {
   this.author = oBook.author || this.author;
   this.numPages = oBook.numPages || this.numPages;
   this.pubDate = oBook.pubDate || this.pubDate;
+  gLibrary.upDateState();
   return this;
 };
 

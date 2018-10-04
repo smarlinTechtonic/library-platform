@@ -22,6 +22,7 @@ Library.prototype.addBook = function(book) {
     }
   }
   this.bookShelf.push(new Book(book));
+  window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
   return true;
 };
 
@@ -32,6 +33,7 @@ Library.prototype.removeBookByTitle = function(fragment){
     return false;
   } else {
     this.bookShelf = this.bookShelf.filter(item => item.title.toLowerCase().indexOf(fragment.toLowerCase()) === -1);
+    window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
     return true;
   }
 }
@@ -54,6 +56,7 @@ Library.prototype.removeBookByAuthor = function(author) {
   } else {
     this.bookShelf = this.bookShelf.filter(function(item){
     return item.author.toLowerCase() !== author.toLowerCase()});
+    window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
     return true;
   }
 }
@@ -104,6 +107,7 @@ Library.prototype.addBooks = function(aBooks) {
       oThis.addBook(new Book(book));
       booksAdded++;
     });
+  window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
   return booksAdded;
 };
 
@@ -155,6 +159,10 @@ Library.prototype.findBookByKeyValue = function(key, value) {
         }
     }
     return aFoundBooks;
+}
+
+Library.prototype.upDateState = function() {
+  window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
 }
 
 document.addEventListener("DOMContentLoaded", function(e) {

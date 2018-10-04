@@ -15,17 +15,17 @@
   <script src="js/engine.js" charset="utf-8"></script>
   <script src="js/book.js" charset="utf-8"></script>
   <script>
-  var aBooks = [
-    {title: "The Glass Castle", author: "Jeannette Walls", numPages: 288, pubDate: "2011-10-10"},
-    {title: "Little Fires Everywhere", author: "Celeste Ng", numPages: 338, pubDate: "2017-9-12"},
-    {title: "Into the Water", author: "Paula Hawkins", numPages: 386, pubDate: "2017-5-2"},
-    {title: "The Radium Girls: The Dark Story of America's Shining Women", author: "Kate Moore", numPages: 496, pubDate: "2017, 12, 31"},
-    {title: "Before We Were Yours", author: "Lisa Wingate", numPages: 342, pubDate: "2017, 6, 18"}
-  ];
+  // var aBooks = [
+  //   {title: "The Glass Castle", author: "Jeannette Walls", numPages: 288, pubDate: "2011-10-10"},
+  //   {title: "Little Fires Everywhere", author: "Celeste Ng", numPages: 338, pubDate: "2017-9-12"},
+  //   {title: "Into the Water", author: "Paula Hawkins", numPages: 386, pubDate: "2017-5-2"},
+  //   {title: "The Radium Girls: The Dark Story of America's Shining Women", author: "Kate Moore", numPages: 496, pubDate: "2017, 12, 31"},
+  //   {title: "Before We Were Yours", author: "Lisa Wingate", numPages: 342, pubDate: "2017, 6, 18"}
+  // ];
   // Check browser support
     if (typeof(Storage) !== "undefined") {
       // Store
-      localStorage.setItem("data", JSON.stringify(aBooks));
+      //localStorage.setItem("data", JSON.stringify(aBooks));
       localStorage.setItem("content", "Book Library");
       // Retrieve
         document.getElementById("heading").innerHTML = localStorage.getItem("content");
