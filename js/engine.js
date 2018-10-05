@@ -79,7 +79,7 @@ Library.prototype.addBooks = function(aBooks) {
   var booksAdded = 0;
   var oThis = this;
   aBooks.forEach(function(book) {
-      oThis.addBook(new Book(book));
+      oThis.addBook(book);
       booksAdded++;
     });
   this.upDateState();
