@@ -4,7 +4,7 @@ function Book(oBook) {
   this.numPages = oBook.numPages;
   this.pubDate = new Date(oBook.pubDate);
 };
-
+//check that title does not already exist
 Book.prototype.editBook = function(oBook) {
   this.title = oBook.title || this.title;
   this.author = oBook.author || this.author;

@@ -10,10 +10,6 @@
   }
 })();
 
-// function Library() {
-//   this.bookShelf = new Array();
-// };
-
 //Function to add a book. If title already exists in bookshelf, will return false
 Library.prototype.addBook = function(book) {
   for (var i = 0; i < this.bookShelf.length; i++){
@@ -22,7 +18,7 @@ Library.prototype.addBook = function(book) {
     }
   }
   this.bookShelf.push(new Book(book));
-  window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
+  this.upDateState();
   return true;
 };
 
@@ -33,20 +29,10 @@ Library.prototype.removeBookByTitle = function(fragment){
     return false;
   } else {
     this.bookShelf = this.bookShelf.filter(item => item.title.toLowerCase().indexOf(fragment.toLowerCase()) === -1);
-    window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
+    this.upDateState();
     return true;
   }
 }
-// ES6 arrows
-// Library.prototype.removeBookByTitle = function(title) {
-//   if(this.bookShelf.filter(item => item.title.indexOf(title) > -1).length===0){
-//     return false;
-//   } else {
-//     this.bookShelf = this.bookShelf.filter(item => item.title.indexOf(title) === -1);
-//     return true;
-//   }
-// };
-
 
 //Function to remove a book by author. Will match all authors and remove all. If no match, will return false
 Library.prototype.removeBookByAuthor = function(author) {
@@ -56,20 +42,10 @@ Library.prototype.removeBookByAuthor = function(author) {
   } else {
     this.bookShelf = this.bookShelf.filter(function(item){
     return item.author.toLowerCase() !== author.toLowerCase()});
-    window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
+    this.upDateState();
     return true;
   }
 }
-
-// ES6
-// Library.prototype.removeBookByAuthor = function(author) {
-//   if(this.bookShelf.filter(elem => elem.author === author).length === 0){
-//     return false;
-//   } else {
-//     this.bookShelf = this.bookShelf.filter(elem => elem.author !== author);
-//     return true;
-//   }
-// }
 
 //Generates a random number between 0 and the length of the array and returns that array item
 Library.prototype.getRandomBook = function() {
@@ -103,32 +79,23 @@ Library.prototype.addBooks = function(aBooks) {
   var booksAdded = 0;
   var oThis = this;
   aBooks.forEach(function(book) {
-      // var bookToAdd = new Book(book);
       oThis.addBook(new Book(book));
       booksAdded++;
     });
-  window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
+  this.upDateState();
   return booksAdded;
 };
 
-//  Using ES6!
-//  Library.prototype.addBooks = function(aBooks) {
-//   var booksAdded = 0;
-//   console.log("just before the forEach loop");
-//   aBooks.forEach(book => {
-//       var bookToAdd = new Book(book);
-//       this.bookShelf.push(bookToAdd);
-//       booksAdded++;
-//     });
-//   return booksAdded;
-// };
-
-//Get all authors in library and return as an array
+// Get all authors in library and return as an array
 Library.prototype.getAuthors = function() {
   var authors = this.bookShelf.map(item => item.author);
-  console.log(authors);
-  return authors;
-};
+  var newObj = {};
+  for(var i = 0; i < authors.length; i++) {
+    newObj[authors[i]] ? newObj[authors[i]]++ : newObj[authors[i]] = 1;
+  }
+  var noDupAuthors = Object.keys(newObj);
+  return noDupAuthors;
+}
 
 //Get a random author
 Library.prototype.getRandomAuthorName = function() {
@@ -165,13 +132,16 @@ Library.prototype.upDateState = function() {
   window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
 }
 
+Library.prototype.loadLib = function() {
+  var books = JSON.parse(localStorage.getItem("data"));
+  if(books){
+    this.addBooks(books);
+  };
+}
+
 document.addEventListener("DOMContentLoaded", function(e) {
     window.gLibrary = new Library();
-  // gLibrary.addBook(firstBook);
-  // gLibrary.addBook(secondBook);
-  // gLibrary.addBook(thirdBook);
-  // gLibrary.addBook(fourthBook);
-  // gLibrary.addBook(fifthBook);
+    gLibrary.loadLib();
 });
 
 // var myBooksArr = [{title: "The Martian", author: "Andy Weir", numPages: 369, pubDate: "February 11th 2014"},{title: "American Kingpin: The Epic Hunt for the Criminal Mastermind Behind the Silk Road", author: "Nick Bilton"}];
