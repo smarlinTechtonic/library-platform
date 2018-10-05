@@ -128,6 +128,7 @@ Library.prototype.findBookByKeyValue = function(key, value) {
     return aFoundBooks;
 }
 
+
 Library.prototype.upDateState = function() {
   window.localStorage.setItem("data", JSON.stringify(this.bookShelf));
 }

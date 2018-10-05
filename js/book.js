@@ -6,7 +6,13 @@ function Book(oBook) {
 };
 //check that title does not already exist
 Book.prototype.editBook = function(oBook) {
-  this.title = oBook.title || this.title;
+  for (let elem of gLibrary.bookShelf){
+    if(oBook.title === elem.title){
+      console.log("That title is already in the book shelf");
+      return false;
+    }
+    this.title = oBook.title || this.title;
+  }
   this.author = oBook.author || this.author;
   this.numPages = oBook.numPages || this.numPages;
   this.pubDate = oBook.pubDate || this.pubDate;
